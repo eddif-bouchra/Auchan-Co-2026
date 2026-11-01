@@ -7,19 +7,94 @@
     <link href="./css/output.css" rel="stylesheet">
     <title>Mon Catalogue</title>
 </head>
-<body class="bg-gray-50 text-gray-800 font-sans">
-    <header class="bg-red-600 text-white p-4">
-        <div class="max-w-6xl mx-auto flex justify-between items-center">
-            <h1 class="text-2xl font-bold">Auchan</h1>
-            <input type="search" placeholder="Rechercher un produit..." class="w-40 rounded-lg p-2 text-gray-800 md:w-80">
-            <span>Mon compte</span>
-        </div>
+<body class="bg-gray-100">
+    <header class="bg-red-600 p-4 text-white flex flex-col gap-3 md:flex-row md:justify-between md:items-center">
+            <h1 class="text-2xl font-bold italic"> Auchan</h1>
+            <input id="recherche" type="text"  placeholder="Rechercher un produit..." class="w-full md:w-1/3 rounded-full px-5 py-3 text-sm text-gray-800 border border-white bg-white">
     </header>
-
-    <main class="max-w-6xl mx-auto p-4">
-        <h2 class="text-2xl font-bold">Nos produits</h2>
-        <p class="mt-2 text-gray-600">Découvrez notre catalogue de produits.</p>
-        <section id="produits" class="mt-6 grid grid-cols-2 gap-4 md:grid-cols-4"> </section>
+    <nav class="bg-white p-3 flex gap-3 overflow-x-auto">
+        <a href="#" class="bg-red-600 text-white px-4 py-2 rounded">Fruits</a>
+        <a href="#" class=" px-4 py-2">Légumes</a>
+        <a href="#" class=" px-4 py-2">Boissons</a>
+        <a href="#" class=" px-4 py-2">Epicerie</a>
+        <a href="#" class=" px-4 py-2">Hygiéne</a>
+    </nav>
+   
+    <main class="max-w-6xl mx-auto p-4 flex flex-col lg:flex-row gap-6">
+        
+        <section class = "flex-1 min-w-0">
+            <h2 class="text-3xl font-bold">Fruits</h2>
+            <p class="text-gray-500 mb-4">Des fruits frais et qualité , au mailleur prix</p>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="bg-white rounded-xl p-4 text-center">
+                    <div><img src="img/bananas.jpg " class="w-full h-40 object-contain"></div>
+                    
+                    <h3 class="font-semibold mt-2">Bananes</h3>
+                    <p class="text-gray-500 text-sm">Le kg</p>
+                    <p class="text-red-600 font-bold">12.90 MAD</p>
+                    <button class="bg-red-600 text-white w-full py-2 rounded mt-2 hover:bg-red-700">Ajouter</button>
+                </div>
+                <div class=" bg-white rounded-xl p-4 text-center">
+                    <div><img src="img/orange.jpg" class="w-full h-40 object-contain"></div>
+                    <h3 class="font-semibold mt-2">Orange</h3>
+                    <p class="text-gray-500 text-sm">Le kg</p>
+                    <p class="text-red-600 font-bold">8.50 MAD</p>
+                    <button class= "bg-red-600 text-white w-full py-2 rounded mt-2 hover:bg-red-700">Ajouter</button>
+                </div>
+                <div class=" bg-white rounded-xl p-4 text-center">
+                    <div><img src="img/fraise.jpg" class="w-full h-40 object-contain"></div>
+                    <h3 class="font-semibold mt-2">Fraises</h3>
+                    <p class="text-gray-500 text-sm">250g</p>
+                    <p class="text-red-600 font-bold">15.90 MAD</p>
+                    <button class = "bg-red-600 text-white w-full py-2 rounded mt-2 hover:bg-red-700">Ajouter</button>
+                </div>
+                <div class=" bg-white rounded-xl p-4 text-center">
+                    <div><img src="img/pomme.png" class="w-full h-40 object-contain"></div>
+                    <h3 class="font-semibold mt-2">Pommes</h3>
+                    <p class="text-gray-500 text-sm">Le kg</p>
+                    <p class="text-red-600 font-bold">14.90 MAD</p>
+                    <button class = "bg-red-600 text-white w-full py-2 rounded mt-2 hover:bg-red-700">Ajouter</button>
+                </div>
+                <div class=" bg-white rounded-xl p-4 text-center">
+                    <div><img src="img/avocado.jpg" class="w-full h-40 object-contain"></div>
+                    <h3 class="font-semibold mt-2">Avocats</h3>
+                    <p class="text-gray-500 text-sm">Le kg</p>
+                    <p class="text-red-600 font-bold">19.90 MAD</p>
+                    <button class = "bg-red-600 text-white w-full py-2 rounded mt-2 hover:bg-red-700">Ajouter</button>
+                </div>
+                <div class=" bg-white rounded-xl p-4 text-center">
+                    <div><img src="img/citron.jpg" class="w-full h-40 object-contain"></div>
+                    <h3 class="font-semibold mt-2">Citrons</h3>
+                    <p class="text-gray-500 text-sm">Le kg</p>
+                    <p class="text-red-600 font-bold">11.50 MAD</p>
+                    <button class = "bg-red-600 text-white w-full py-2 rounded mt-2 hover:bg-red-700">Ajouter</button>
+                </div>
+                <div class=" bg-white rounded-xl p-4 text-center">
+                    <div><img src="img/kiwi.jpg" class="w-full h-40 object-contain"></div>
+                    <h3 class="font-semibold mt-2">kiwi</h3>
+                    <p class="text-gray-500 text-sm">Le kg</p>
+                    <p class="text-red-600 font-bold">16.90 MAD</p>
+                    <button class = "bg-red-600 text-white w-full py-2 rounded mt-2 hover:bg-red-700">Ajouter</button>
+                </div>
+                <div class=" bg-white rounded-xl p-4 text-center">
+                    <div><img src="img/Raisins blanc.jpg" class="w-full h-40 object-contain"></div>
+                    <h3 class="font-semibold mt-2">Raisins blanc</h3>
+                    <p class="text-gray-500 text-sm">Le kg</p>
+                    <p class="text-red-600 font-bold">18.90 MAD</p>
+                    <button class = "bg-red-600 text-white w-full py-2 rounded mt-2 hover:bg-red-700">Ajouter</button>
+                </div>
+            </div>
+        </section>
+        <aside class="w-full lg:w-1/4 bg-white rounded-xl shadow p-4 h-fit flex flex-col gap-4">
+                <h2 class="text-xl font-bold">Mon panier</h2>
+                <div class="border-t pt-4">
+                <span class="font-semibold">Total : <span class="text-red-600 font-bold">0 MAD</span></span>
+                <button type="button" class="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700">Voir mon panier</button>
+            </div>
+        </aside>    
+            
+       
+       
     </main>
     <footer class="mt-8 bg-green-900 p-6 text-white">
         <div class="max-w-6xl mx-auto">

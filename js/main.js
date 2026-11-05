@@ -3,8 +3,9 @@ const titre = document.getElementById("titre");
 const description = document.getElementById("description")
 const products = document.getElementById("products");
 const recherche = document.getElementById("recherche");
+const grille = document.getElementById("btnGrille");
+const listeBtn = document.getElementById("btnListe");
 const categories = document.querySelectorAll("[data-categorie]");
-const tableau = document.getElementById("tableau");
 
 getProduits().then(function(produits){
     let categActuelle = "";
@@ -22,9 +23,19 @@ getProduits().then(function(produits){
             return card;
         });
         products.innerHTML = "";
+        if(liste.length === 0){
+            products.innerHTML = "<p>Aucun produit trouvé.</p>";
+            return;
+        }
         carte.forEach(function(card) {
         products.innerHTML += card;
         });
+        grille.addEventListener("click",function(){
+            products.className = "grid grid-cols-2 lg:grid-cols-4 gap-4"
+        })
+        listeBtn.addEventListener("click",function(){
+            products.className = "flex flex-col gap-3 p-4"
+        })
 }
     function FiltrProduit(){
     afficheProduit(produits);

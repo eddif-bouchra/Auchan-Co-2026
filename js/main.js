@@ -6,11 +6,17 @@ const recherche = document.getElementById("recherche");
 const grille = document.getElementById("btnGrille");
 const listeBtn = document.getElementById("btnListe");
 const categories = document.querySelectorAll("[data-categorie]");
+const pagination = document.getElementById("pagination");
 
 getProduits().then(function(produits){
     let categActuelle = "";
+    let produitparPage = 8 ;
+    let pageActuel = 1;
     function afficheProduit(liste){
-        let carte =liste.map(function(produit){
+        let debut = (pageActuel - 1) * (produitparPage);
+        let fin = debut + produitparPage;
+        let produitsPage = liste.slice(debut,fin);
+        let carte =produitsPage.map(function(produit){
             let card = `
                 <div class="bg-white rounded-xl p-4 text-center">
                         <img src="${produit.image}"
@@ -20,16 +26,38 @@ getProduits().then(function(produits){
                         <p>${produit.categorie}</p>
                         <button class="bg-red-600 text-white w-full py-2 rounded mt-2 hover:bg-red-700">Ajouter</button>
                 </div>`
+                
             return card;
         });
         products.innerHTML = "";
+        pagination.innerHTML ="";
         if(liste.length === 0){
             products.innerHTML = "<p>Aucun produit trouvé.</p>";
             return;
         }
         carte.forEach(function(card) {
         products.innerHTML += card;
+    
         });
+        function affichePagination(){
+        let nombrePage = Math.ceil(liste.length / produitparPage);
+        pagination.innerHTML ="";
+        for(let i =1;i<=nombrePage;i++){
+            let btn = document.createElement("button");
+            btn.textContent = i;
+            if(i === pageActuel){
+                btn.className = "bg-red-600 text-white px-3 py-1 rounded";
+            }
+            else{
+                btn.className = "bg-gray-200  px-3 py-1 rounded";
+            }
+            pagination.appendChild(btn);
+            btn.addEventListener("click",function(){
+                pageActuel = i;
+                afficheProduit(liste);
+            })
+        }}
+        affichePagination();
         grille.addEventListener("click",function(){
             products.className = "grid grid-cols-2 lg:grid-cols-4 gap-4"
         })
@@ -44,6 +72,7 @@ getProduits().then(function(produits){
     let produitFiltrer = produits.filter(function(element){
         return element.nom.toLowerCase().includes(resultat) && (categActuelle === "" || element.categorie === categActuelle);
     });
+    pageActuel = 1;
     afficheProduit(produitFiltrer);
 })
     categories.forEach(function (element){
@@ -70,6 +99,7 @@ getProduits().then(function(produits){
         let proFilter = produits.filter(function(element){
             return element.nom.toLowerCase().includes(resultat)&& element.categorie === categActuelle;
         });
+        pageActuel = 1;
         afficheProduit(proFilter);
     });
 });

@@ -53,10 +53,34 @@ getProduits().then(function(produits){
             }
             pagination.appendChild(btn);
             btn.addEventListener("click",function(){
-                pageActuel = i;
+                    pageActuel=i;
+                    afficheProduit(liste);
+                
+            });
+        }
+        let suivant = document.createElement("button");
+        suivant.textContent = "Suivant";
+        suivant.className = "bg-gray-200 px-3 py-1 rounded";
+        suivant.addEventListener("click", function(){
+        if(pageActuel < nombrePage){
+        pageActuel++;
+        afficheProduit(liste);
+    }
+});
+        pagination.appendChild(suivant);
+        let précédent = document.createElement("button");
+        précédent.textContent="précédent";
+        précédent.classList = "bg-gray-200 px-3 py-1 rounded";
+        précédent.addEventListener("click",function(){
+            if(pageActuel > 1){
+                pageActuel--;
                 afficheProduit(liste);
-            })
-        }}
+            }
+        });
+        pagination.appendChild(précédent);
+        
+    }; 
+
         affichePagination();
         grille.addEventListener("click",function(){
             products.className = "grid grid-cols-2 lg:grid-cols-4 gap-4"

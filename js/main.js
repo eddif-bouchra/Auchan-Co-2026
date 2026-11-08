@@ -7,9 +7,11 @@ const grille = document.getElementById("btnGrille");
 const listeBtn = document.getElementById("btnListe");
 const categories = document.querySelectorAll("[data-categorie]");
 const pagination = document.getElementById("pagination");
+const panier = document.getElementById("panier");
 
 getProduits().then(function(produits){
     let categActuelle = "";
+    let panierProduits = [];
     let produitparPage = 8 ;
     let pageActuel = 1;
     function afficheProduit(liste){
@@ -18,7 +20,7 @@ getProduits().then(function(produits){
         let produitsPage = liste.slice(debut,fin);
         let carte =produitsPage.map(function(produit){
             let card = `
-                <div class="bg-white rounded-xl p-4 text-center">
+                <div draggable="true" data-id="${produit.id}" class="product-card bg-white rounded-xl p-4 text-center">
                         <img src="${produit.image}"
                         class="w-full h-40 object-contain">
                         <h3 class="font-semibold mt-2">${produit.nom}</h3>
@@ -39,6 +41,12 @@ getProduits().then(function(produits){
         products.innerHTML += card;
     
         });
+        const cartes = products.querySelectorAll(".product-card");
+        cartes.forEach(function(carte){
+            carte.addEventListener("dragstart",function(e){
+                e.dataTransfer.setData("text/plain",carte.dataset.id);
+            });
+        })
         function affichePagination(){
         let nombrePage = Math.ceil(liste.length / produitparPage);
         pagination.innerHTML ="";
@@ -77,8 +85,7 @@ getProduits().then(function(produits){
                 afficheProduit(liste);
             }
         });
-        pagination.appendChild(précédent);
-        
+        pagination.appendChild(précédent);  
     }; 
 
         affichePagination();
@@ -129,6 +136,45 @@ getProduits().then(function(produits){
 });
     }
     FiltrProduit();
+    panier.addEventListener("dragover",function(e){
+        e.preventDefault();
+    });
+     panier.addEventListener("drop",function(e){
+            e.preventDefault();
+            let idProduit = e.dataTransfer.getData("text/plain");
+            let produitChoisi = produits.find(function(produit){
+                return produit.id == idProduit;
+                
+            });
+            let produitExist = panierProduits.find(function(element){
+                    return element.id == idProduit;
+                });
+                if(produitExist){
+                    produitExist.quantite++;
+                }else{
+                    panierProduits.push({
+                        id: produitChoisi.id,
+                        nom:produitChoisi.nom,
+                        prix:produitChoisi.prix,
+                        quantite:1
+                    });
+                }
+            affichePanier();
+            console.log(produitChoisi);
+            console.log(idProduit);
+        });
+        
+        function affichePanier(){
+            panier.innerHTML = "";
+            panierProduits.forEach(function(element){
+                panier.innerHTML += `
+                <div>
+                <p>${element.nom}</p>
+                <p>prix total : ${element.prix * element.quantite}DH</p>
+                <p>Quantité : ${element.quantite}</p>
+                </div>`;
+            });
+        }
 
 });
 

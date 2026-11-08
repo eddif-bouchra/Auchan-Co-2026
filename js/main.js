@@ -46,7 +46,14 @@ getProduits().then(function(produits){
             carte.addEventListener("dragstart",function(e){
                 e.dataTransfer.setData("text/plain",carte.dataset.id);
             });
-        })
+        });
+        const btnAjout = products.querySelectorAll(".product-card button");
+        btnAjout.forEach(function(bouton){
+            bouton.addEventListener("click",function(){
+                let idProduit = bouton.parentElement.dataset.id;
+                ajouterauPanier(idProduit);
+            });
+        });
         function affichePagination(){
         let nombrePage = Math.ceil(liste.length / produitparPage);
         pagination.innerHTML ="";
@@ -163,7 +170,25 @@ getProduits().then(function(produits){
             console.log(produitChoisi);
             console.log(idProduit);
         });
-        
+        function ajouterauPanier(idProduit){
+            let produitChoisi = produits.find(function(produit){
+                return produit.id == idProduit;
+            });
+            let produitExist = panierProduits.find(function(element){
+                return element.id == idProduit;
+            });
+            if(produitExist){
+                produitExist.quantite++;
+            }else{
+                panierProduits.push({
+                id: produitChoisi.id,
+                nom: produitChoisi.nom,
+                prix: produitChoisi.prix,
+                quantite: 1
+        });
+        }
+        affichePanier();
+        }
         function affichePanier(){
             panier.innerHTML = "";
             panierProduits.forEach(function(element){

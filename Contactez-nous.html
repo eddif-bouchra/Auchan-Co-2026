@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+    <html lang="fr">
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="./css/output.css" rel="stylesheet">
+    <title>Contactez-nous | Auchan</title>
+    </head>
+    <body class="bg-gray-100 min-h-screen">
+    <header class="bg-red-600 p-4 text-white">
+        <div class="max-w-6xl mx-auto flex flex-col gap-3 sm:flex-row sm:justify-between sm:items-center">
+            <h1 class="text-2xl font-bold italic">Auchan</h1>
+
+            <nav class= "flex gap-4 text-sm font-semibold">
+                <a href="./index.html" class="hover:text-red-200">Accueil</a>
+                <a href="./Contactez-nous.html" class="underline">Contactez-nous</a>
+            </nav>
+        </div>
+    </header>
+
+    
+    <main class="max-w-3xl mx-auto px-4 py-10">
+
+        <div class="text-center mb-8">
+            <h2 class="text-3xl font-bold text-gray-800">
+                Contactez-nous
+            </h2>
+            <p class="text-gray-500 mt-2">
+                Une question ou une remarque ? Nous sommes à votre écoute.
+            </p>
+        </div>
+
+        
+        <section class="bg-white rounded-xl shadow-md p-6 sm:p-8">
+
+            <form id="contactForm" novalidate>
+
+                
+                <div class="mb-5">
+                    <label for="nom" class="block text-gray-700 font-semibold mb-2">
+                        Nom
+                    </label>
+                    <input type="text" id="nom" name="nom" placeholder="Votre nom"
+                        class="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:border-red-500 focus:ring-2 focus:ring-red-100">
+                    <p id="erreurNom" class="text-red-600 text-sm mt-1"></p>
+                </div>
+
+                
+                <div class="mb-5">
+                    <label for="prenom" class="block text-gray-700 font-semibold mb-2">
+                        Prénom
+                    </label>
+                    <input type="text" id="prenom" name="prenom" placeholder="Votre prénom"
+                        class="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:border-red-500 focus:ring-2 focus:ring-red-100">
+                    <p id="erreurPrenom" class="text-red-600 text-sm mt-1"></p>
+                </div>
+
+                
+                <div class="mb-5">
+                    <label for="email" class="block text-gray-700 font-semibold mb-2">
+                        Adresse Email
+                    </label>
+                    <input type="email" id="email" name="email" placeholder="exemple@gmail.com"
+                        class="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:border-red-500 focus:ring-2 focus:ring-red-100">
+                    <p id="erreurEmail" class="text-red-600 text-sm mt-1"></p>
+                </div>
+
+                
+                <div class="mb-5">
+                    <label for="telephone" class="block text-gray-700 font-semibold mb-2">
+                        Téléphone
+                    </label>
+                    <input type="tel" id="telephone" name="telephone" placeholder="06XXXXXXXX"
+                        class="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none focus:border-red-500 focus:ring-2 focus:ring-red-100">
+                    <p id="erreurTelephone" class="text-red-600 text-sm mt-1"></p>
+                </div>
+
+                
+                <div class="mb-5">
+                    <label for="sujet" class="block text-gray-700 font-semibold mb-2">
+                        Sujet
+                    </label>
+                    <select id="sujet" name="sujet"
+                        class="w-full border border-gray-300 rounded-lg px-4 py-3 bg-white outline-none focus:border-red-500 focus:ring-2 focus:ring-red-100">
+                        <option value="">Choisir un sujet</option>
+                        <option value="information">Demande d'information</option>
+                        <option value="commande">Problème de commande</option>
+                        <option value="reclamation">Réclamation</option>
+                        <option value="autre">Autre</option>
+                    </select>
+                    <p id="erreurSujet" class="text-red-600 text-sm mt-1"></p>
+                </div>
+
+                
+                <div class="mb-6">
+                    <label for="message" class="block text-gray-700 font-semibold mb-2">
+                        Votre message
+                    </label>
+                    <textarea id="message" name="message" rows="5" placeholder="Écrivez votre message ici..."
+                        class="w-full border border-gray-300 rounded-lg px-4 py-3 outline-none resize-y focus:border-red-500 focus:ring-2 focus:ring-red-100"></textarea>
+                    <p id="erreurMessage" class="text-red-600 text-sm mt-1"></p>
+                </div>
+
+                
+                <p id="resultatForm" class="text-sm mb-4"></p>
+
+                
+                <button type="submit"
+                    class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 rounded-lg transition duration-200">
+                    Envoyer le message
+                </button>
+
+            </form>
+        </section>
+
+        <div class="text-center mt-6">
+            <a href="./index.html" class="text-red-600 hover:underline font-semibold">
+                 Retour au catalogue
+            </a>
+        </div>
+
+    </main>
+
+    
+    <footer class="bg-green-900 text-white p-6 mt-8">
+        <div class="max-w-6xl mx-auto text-center">
+            <h2 class="text-xl font-bold">Auchan</h2>
+            <p class="text-green-200 mt-2">
+                Bien plus que des courses
+            </p>
+            <p class="text-sm mt-4">
+                © 2026 Mon Catalogue
+            </p>
+        </div>
+    </footer>
+
+    <script type="module" src="./js/validation.js"></script>
+
+</body>
+
+</html>

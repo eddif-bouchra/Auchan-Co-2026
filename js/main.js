@@ -1,4 +1,5 @@
 import{getProduits} from "./api.js";
+import { sauvgardrPanier,chargerPanier } from "./storage.js";
 const titre = document.getElementById("titre");
 const description = document.getElementById("description")
 const products = document.getElementById("products");
@@ -11,36 +12,87 @@ const panier = document.getElementById("panier");
 
 getProduits().then(function(produits){
     let categActuelle = "";
-    let panierProduits = [];
+    let panierProduits = chargerPanier();
     let produitparPage = 8 ;
     let pageActuel = 1;
+    let modeAffichage ="grille";
+    let produitsActuels = produits;
     function afficheProduit(liste){
         let debut = (pageActuel - 1) * (produitparPage);
         let fin = debut + produitparPage;
         let produitsPage = liste.slice(debut,fin);
-        let carte =produitsPage.map(function(produit){
-            let card = `
-                <div draggable="true" data-id="${produit.id}" class="product-card bg-white rounded-xl p-4 text-center">
-                        <img src="${produit.image}"
-                        class="w-full h-40 object-contain">
-                        <h3 class="font-semibold mt-2">${produit.nom}</h3>
-                        <p class="text-red-600 font-bold">${produit.prix}DH</p>
-                        <p>${produit.categorie}</p>
-                        <button class="bg-red-600 text-white w-full py-2 rounded mt-2 hover:bg-red-700">Ajouter</button>
-                </div>`
-                
-            return card;
-        });
+        let carte = produitsPage.map(function(produit){
+
+        if (modeAffichage === "liste") {
+        return `
+            <tr draggable="true" data-id="${produit.id}" class="product-card border-b">
+                <td>${produit.nom}</td>
+                <td>
+                    <img src="${produit.image}" class="w-20 h-20 object-contain">
+                </td>
+                <td>${produit.prix} DH</td>
+                <td>
+                    <button class="bg-red-600 text-white px-3 py-1 rounded">
+                        Ajouter
+                    </button>
+                </td>
+            </tr>
+            
+        `;
+        }
+
+        else {
+        return `
+            <div draggable="true" data-id="${produit.id}" class="product-card bg-white rounded-xl p-4 text-center">
+                <img src="${produit.image}" class="w-full h-40 object-contain">
+                <h3 class="font-semibold mt-2">${produit.nom}</h3>
+                <p class="text-red-600 font-bold">${produit.prix}DH</p>
+                <p>${produit.categorie}</p>
+                <button class="bg-red-600 text-white w-full py-2 rounded mt-2 hover:bg-red-700">Ajouter</button>
+            </div>
+        `;
+        }
+});
         products.innerHTML = "";
+            if (modeAffichage === "liste") {
+        products.className = "w-full min-w-0";
+        } else {
+        products.className = "w-full min-w-0 grid grid-cols-2 md:grid-cols-4 gap-4";
+        }
         pagination.innerHTML ="";
         if(liste.length === 0){
             products.innerHTML = "<p>Aucun produit trouvé.</p>";
             return;
         }
+        if (modeAffichage === "liste") {
+
+            products.innerHTML = `
+            <table class="w-full bg-white">
+                <thead>
+                    <tr>
+                        <th>Produit</th>
+                        <th>Image</th>
+                        <th>Prix</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="tableauProduits"></tbody>
+            </table>
+            `;
+
+        const tableauProduits = document.getElementById("tableauProduits");
+
         carte.forEach(function(card) {
-        products.innerHTML += card;
-    
+            tableauProduits.innerHTML += card;
         });
+
+        }else {
+
+        carte.forEach(function(card) {
+            products.innerHTML += card;
+        });
+
+        }
         const cartes = products.querySelectorAll(".product-card");
         cartes.forEach(function(carte){
             carte.addEventListener("dragstart",function(e){
@@ -50,7 +102,7 @@ getProduits().then(function(produits){
         const btnAjout = products.querySelectorAll(".product-card button");
         btnAjout.forEach(function(bouton){
             bouton.addEventListener("click",function(){
-                let idProduit = bouton.parentElement.dataset.id;
+                let idProduit = bouton.closest(".product-card").dataset.id;
                 ajouterauPanier(idProduit);
             });
         });
@@ -85,7 +137,7 @@ getProduits().then(function(produits){
         pagination.appendChild(suivant);
         let précédent = document.createElement("button");
         précédent.textContent="précédent";
-        précédent.classList = "bg-gray-200 px-3 py-1 rounded";
+        précédent.className = "bg-gray-200 px-3 py-1 rounded";
         précédent.addEventListener("click",function(){
             if(pageActuel > 1){
                 pageActuel--;
@@ -94,15 +146,19 @@ getProduits().then(function(produits){
         });
         pagination.appendChild(précédent);  
     }; 
+    affichePagination();
+    }
 
-        affichePagination();
-        grille.addEventListener("click",function(){
-            products.className = "grid grid-cols-2 lg:grid-cols-4 gap-4"
-        })
-        listeBtn.addEventListener("click",function(){
-            products.className = "flex flex-col gap-3 p-4"
-        })
-}
+    grille.addEventListener("click",function(){
+         modeAffichage = "grille";
+        afficheProduit(produitsActuels);
+    });
+
+    listeBtn.addEventListener("click",function(){
+    modeAffichage = "liste";
+    afficheProduit(produitsActuels);
+});
+
     function FiltrProduit(){
     afficheProduit(produits);
     recherche.addEventListener("input", function(){
@@ -166,6 +222,7 @@ getProduits().then(function(produits){
                         quantite:1
                     });
                 }
+            sauvgardrPanier(panierProduits);
             affichePanier();
             console.log(produitChoisi);
             console.log(idProduit);
@@ -187,19 +244,54 @@ getProduits().then(function(produits){
                 quantite: 1
         });
         }
+        sauvgardrPanier(panierProduits);
         affichePanier();
         }
         function affichePanier(){
             panier.innerHTML = "";
+            let total = panierProduits.reduce(function(acc ,element){
+                return acc + (element.prix * element.quantite);
+            },0);
             panierProduits.forEach(function(element){
                 panier.innerHTML += `
                 <div>
                 <p>${element.nom}</p>
-                <p>prix total : ${element.prix * element.quantite}DH</p>
+                <p>Prix unitaire : ${element.prix}DH</p>
                 <p>Quantité : ${element.quantite}</p>
+                <p>prix total : ${element.prix * element.quantite}DH</p>
+                <button data-action="plus" data-id="${element.id}">+</button>
+                <button data-action="moins" data-id="${element.id}">-</button>
+                 <button data-action="supprimer" data-id="${element.id}">Supprimer</button>
                 </div>`;
             });
+            panier.innerHTML += `
+            <p class = "font-bold text-lg">Total général : ${total}DH</p>`;
+            panier.querySelectorAll("button").forEach(function(bouton){
+                bouton.addEventListener("click",function(){
+                    let idProduit = bouton.dataset.id;
+                    let action = bouton.dataset.action;
+                    let produit = panierProduits.find(function(element){
+                        return element.id == idProduit;
+                    });
+                    if (action === "plus") {
+                        produit.quantite++;
+                    }
+                    else if(action === "moins"){
+                        if(produit.quantite > 1){
+                            produit.quantite--;
+                        }
+                    }
+                    else if(action === "supprimer"){
+                        panierProduits = panierProduits.filter(function(element){
+                            return element.id != idProduit;
+                        });
+                    }
+                    sauvgardrPanier(panierProduits);
+                    affichePanier();
+                });
+            });
         }
+        affichePanier();
 
 });
 

@@ -197,6 +197,118 @@
         "categorie":"Fruits",
         "image":"img/Raisins blanc (1).jpg"
 
+    },
+{
+    "id": 17,
+    "nom": "Eau minérale",
+    "prix": 5.00,
+    "categorie": "Boissons",
+    "image": "img/eau.png"
+},
+{
+    "id": 18,
+    "nom": "Jus d'orange",
+    "prix": 12.90,
+    "categorie": "Boissons",
+    "image": "img/jus.png"
+},
+{
+    "id": 19,
+    "nom": "Coca-Cola",
+    "prix": 9.00,
+    "categorie": "Boissons",
+    "image": "img/coca.png"
+},
+{
+    "id": 20,
+    "nom": "Thé vert",
+    "prix": 18.50,
+    "categorie": "Boissons",
+    "image": "img/lipton.png"
+},
+{
+    "id": 21,
+    "nom": "Lait",
+    "prix": 8.50,
+    "categorie": "Boissons",
+    "image": "img/lait.png"
+},
+{
+    "id": 22,
+    "nom": "Thé glacé",
+    "prix": 10.00,
+    "categorie": "Boissons",
+    "image": "img/nistro.png"
+},
+{
+    "id": 23,
+    "nom": "Boisson énergisante",
+    "prix": 15.00,
+    "categorie": "Boissons",
+    "image": "img/red bull.png"
+},
+{
+    "id": 24,
+    "nom": "Jus tropical",
+    "prix": 13.50,
+    "categorie": "Boissons",
+    "image": "img/tropivana.png"
+},
+ {
+        "id": 9,
+        "nom": "Tomates",
+        "prix": 7.90,
+        "categorie": "Légumes",
+        "image": "img/tomate.png"
+    },
+    {
+        "id": 10,
+        "nom": "Carottes",
+        "prix": 6.50,
+        "categorie": "Légumes",
+        "image": "img/carrot.jpg"
+    },
+    {
+        "id": 11,
+        "nom": "Pommes de terre",
+        "prix": 5.90,
+        "categorie": "Légumes",
+        "image": "img/Pommes de terre.jpg"
+    },
+    {
+        "id": 12,
+        "nom": "Oignons",
+        "prix": 7.00,
+        "categorie": "Légumes",
+        "image": "img/Oignons.png"
+    },
+    {
+        "id": 13,
+        "nom": "Courgettes",
+        "prix": 8.90,
+        "categorie": "Légumes",
+        "image": "img/Courgettes.jpg"
+    },
+    {
+        "id": 14,
+        "nom": "Concombres",
+        "prix": 6.90,
+        "categorie": "Légumes",
+        "image": "img/Concombres.jpg"
+    },
+    {
+        "id": 15,
+        "nom": "Poivrons",
+        "prix": 12.90,
+        "categorie": "Légumes",
+        "image": "img/Poivrons.jpg"
+    },
+    {
+        "id": 16,
+        "nom": "Brocolis",
+        "prix": 14.90,
+        "categorie": "Légumes",
+        "image": "img/Brocolis.jpg"
     }
     
 ]

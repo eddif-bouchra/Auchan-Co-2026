@@ -109,6 +109,19 @@ getProduits().then(function(produits){
         function affichePagination(){
         let nombrePage = Math.ceil(liste.length / produitparPage);
         pagination.innerHTML ="";
+        let précédent = document.createElement("button");
+        précédent.textContent = "← Précédent";
+        précédent.className = "bg-white border border-gray-300 text-gray-700 px-4 py-2 rounded-lg font-semibold hover:bg-gray-100 transition";
+
+        précédent.addEventListener("click", function(){
+            if(pageActuel > 1){
+                pageActuel--;
+                afficheProduit(liste);
+            }
+        });
+
+        pagination.appendChild(précédent);
+        
         for(let i =1;i<=nombrePage;i++){
             let btn = document.createElement("button");
             btn.textContent = i;
@@ -126,8 +139,8 @@ getProduits().then(function(produits){
             });
         }
         let suivant = document.createElement("button");
-        suivant.textContent = "Suivant";
-        suivant.className = "bg-gray-200 px-3 py-1 rounded";
+        suivant.textContent = "→ Suivant";
+        suivant.className = "bg-red-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-red-700 transition";
         suivant.addEventListener("click", function(){
         if(pageActuel < nombrePage){
         pageActuel++;
@@ -135,16 +148,8 @@ getProduits().then(function(produits){
     }
 });
         pagination.appendChild(suivant);
-        let précédent = document.createElement("button");
-        précédent.textContent="précédent";
-        précédent.className = "bg-gray-200 px-3 py-1 rounded";
-        précédent.addEventListener("click",function(){
-            if(pageActuel > 1){
-                pageActuel--;
-                afficheProduit(liste);
-            }
-        });
-        pagination.appendChild(précédent);  
+        
+          
     }; 
     affichePagination();
     }
@@ -257,11 +262,13 @@ getProduits().then(function(produits){
                 <div>
                 <p>${element.nom}</p>
                 <p>Prix unitaire : ${element.prix}DH</p>
-                <p>Quantité : ${element.quantite}</p>
+                <span class="bg-gray-100 px-4 py-2 rounded-lg font-semibold">
+                    ${element.quantite}
+                </span>
                 <p>prix total : ${element.prix * element.quantite}DH</p>
-                <button data-action="plus" data-id="${element.id}">+</button>
-                <button data-action="moins" data-id="${element.id}">-</button>
-                 <button data-action="supprimer" data-id="${element.id}">Supprimer</button>
+                <button data-action="plus" data-id="${element.id}" class="bg-red-600 hover:bg-red-700 text-white w-9 h-9 rounded-lg font-bold">+</button>
+                <button data-action="moins" data-id="${element.id}"class="bg-gray-200 hover:bg-gray-300 text-gray-800 w-9 h-9 rounded-lg font-bold" >-</button>
+                <button data-action="supprimer" data-id="${element.id}" class="bg-red-100 hover:bg-red-200 text-red-700 px-3 py-2 rounded-lg text-sm font-semibold">Supprimer</button>
                 </div>`;
             });
             panier.innerHTML += `
